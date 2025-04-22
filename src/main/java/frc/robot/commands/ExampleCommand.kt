@@ -26,11 +26,11 @@ class ExampleCommand() : Command() {
 
     // Called once the command ends or is interrupted.
     override fun end(interrupted: Boolean) {
+        XRPDrivetrain.arcadeDrive(0.0, 0.0) // Stops driving
     }
 
     // Returns true when the command should end.
     override fun isFinished(): Boolean {
         return timeSinceInit?.let { Timer.getFPGATimestamp() - it > 2.0 } == true // If 2 seconds have passed, stop
-        XRPDrivetrain.arcadeDrive(0.0, 0.0) // Drives forward at full speed
     }
 }
