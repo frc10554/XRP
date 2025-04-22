@@ -3,6 +3,7 @@ package frc.robot.subsystems
 import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
 import edu.wpi.first.wpilibj.xrp.XRPMotor
+import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
 // By making a subsystem an object, we ensure there is only ever one instance of it
@@ -36,6 +37,17 @@ object XRPDrivetrain : SubsystemBase("Drivetrain") {
 
         // Invert right side since motor is flipped
         rightMotor.inverted = true
+
+        this.defaultCommand = object : Command() {
+            init {
+                addRequirements(XRPDrivetrain)
+                name = "XRPDrivetrain Default Command (Idle)"
+            }
+
+            override fun execute() {
+                diffDrive.feed()
+            }
+        }
     }
 
     val leftDistanceInch: Double
